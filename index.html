@@ -10,12 +10,19 @@
 
     <title>Meitanteip.GitHub.io</title>
   </head>
+<div id="map"></div>
+    <script>
+      function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          scrollwheel: false,
+          zoom: 8
+        });
+      }
 
-  <body>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap"
-            async defer></script>
-    
-
-
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap"
+    async defer></script>
   </body>
 </html>
