@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+
+
+
+function initMap() {
+  /* 緯度・経度 */
+  var myLating = {lat: 34.720395, lng:135.361702};
+  
+  /* 地図オブジェクト */
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom:16,
+    center: myLating
+  });
+
+  /* ★情報ウィンドウ */
+  var contentString="<dl id='infowin1'><dt>阪神甲子園球場</dt><dd><img src='/content/img/ajax/gmapv3/sphinx.gif' align='left' />兵庫県西宮市。阪神タイガース戦と高校野球ほかイベントの開催情報とチケット案内。グッズ、施設、歴史の紹介。<a href='http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%95%E3%82%A3%E3%83%B3%E3%82%AF%E3%82%B9'>wikipedia</a>より。</dd></dl>";
+           
+  var infowindow=new google.maps.InfoWindow({
+            content: contentString
+  });
+
+  var marker = new google.maps.Marker( {
+    position: myLating,
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    //position: {lat: 59.327, lng: 18.067},
+    title:'Koshien'
+  
+  });
+
+
+  /* マーカーがクリックされた時に情報ウィンドウ表示 */
+    google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+     });
+
+}
+
+
+
+
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap">
+    </script>
+  </body>
+</html>
