@@ -13,20 +13,16 @@
 
 
 
-var map;
-var myLating;
-var marker;
-
 function initMap() {
-  myLating = {lat: 34.720395, lng:135.361702};
+  var myLating = {lat: 34.720395, lng:135.361702};
   
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom:16
-    center:myLating
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom:16,
+    center: myLating
   });
 
 
-  marker = new google.maps.Marker( {
+  var marker = new google.maps.Marker( {
     position: myLating,
     map: map,
     title:'Koshien'
