@@ -25,11 +25,11 @@ var marker;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 35.705640, lng: 139.751891}, //地図の中央位置
-    zoom: 8　//地図の拡大倍率
+    zoom: 15　//地図の拡大倍率
   });
 
    marker = new google.maps.Marker({
-        position: {lat: 35.7100627, lng: 139.8107004}, // マーカーの位置を指定
+        position: {lat: 35.705640, lng: 139.751891}, // マーカーの位置を指定
         map: map // マーカーを配置する地図を指定
     });
 }
