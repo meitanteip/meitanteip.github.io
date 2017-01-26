@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <title>Marker Clustering</title>
     <style>
+      /*常に地図の高さを明示的に設定してdivのサイズを定義する
+        *マップを含む要素。 */
+
+      #map {
+        height: 100%;
+      }
+      /* Optional: サンプルページをウィンドウに塗りつぶします。 */
       html, body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
-      #map {
-        height: 100%;
       }
     </style>
   </head>
@@ -19,26 +23,33 @@
     <div id="map"></div>
     <script>
 
-var map;
+      function initMap() {
 
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: -28.024, lng: 140.887}
+        });
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.705640, lng: 139.751891}, //地図の中央位置
-    zoom: 15　//地図の拡大倍率
-  });
- // マーカーにラベルを付けるために使用されるアルファベット文字の配列を作成する.
-   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-   var markers = locations.map(function(location, i) {
+        // マーカーにラベルを付けるために使用されるアルファベット文字の配列を作成する.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+         // マップにマーカーを追加します。
+         // 注：このコードでは、JavaScriptのArray.prototype.map（）メソッドを使用して
+         // 指定された「場所」配列に基づいてマーカーの配列を作成します。
+         // ここのmap（）メソッドはGoogle Maps APIとは関係ありません。
+        var markers = locations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
             label: labels[i % labels.length]
           });
         });
- var markerCluster = new MarkerClusterer(map, markers,
+
+        // マーカを管理するマーカークラスタラーを追加します。
+
+        var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
       }
-     var locations = [
+      var locations = [
       {lat: 35.69467196, lng: 	139.7628522	},
 {lat: 35.6957109, lng: 	139.7390797	},
 {lat: 35.6957109, lng: 	139.7390797	},
@@ -632,10 +643,11 @@ function initMap() {
 {lat: 35.7113823, lng: 	139.7535101	}
 
       ]
-
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap"
-        async defer>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap">
     </script>
   </body>
 </html>
