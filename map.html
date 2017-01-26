@@ -7,55 +7,41 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
-    <script type="text/javascript">
+<div id="div798"></div>
 
+<script type="text/javascript">
+$(document).ready(function(){
+//  マップ作成
+    // マップ中心座標設定
+    var latlng = new google.maps.LatLng( -34.580083, -58.381577);
+    // オプション
+    var myOptions = {
+        zoom: 4,                                    // マップのズーム度
+        center: latlng,                             // 中心座標をセット
+        mapTypeId: google.maps.MapTypeId.ROADMAP    // 表示するマップのタイプ
+    };
+    //    マップ作成
+    var map = new google.maps.Map( document.getElementById("div798"), myOptions);
 
+//  マーカー作成
+    // マーカーデータを格納
+    var markers = [<?php echo $latlngs; ?>];
+    var infowindow = new google.maps.InfoWindow();
 
-
-function initMap() {
-  // 地図の作成
-    var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
-    map = new google.maps.Map(document.getElementById('sample'), { // #sampleに地図を埋め込む
-        center: mapLatLng, // 地図の中心を指定
-        zoom: 15 // 地図のズームを指定
-    });
- 
-    // マーカー毎の処理
-    for (var i = 0; i < markerData.length; i++) {
-        markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
-        marker[i] = new google.maps.Marker({ // マーカーの追加
-            position: markerLatLng, // マーカーを立てる位置を指定
-            map: map // マーカーを立てる地図を指定
+    // データの数だけマーカー位置と吹き出しの情報を作成していきます
+    var marker, i;
+    for (i = 0; i < markers.length; i++) {
+        marker = new google.maps.Marker( {
+            position: new google.maps.LatLng( markers[i][1], markers[i][2]),
+            map: map
         });
- 
-        infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-            content: '<div class="sample">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
-        });
- 
-        markerEvent(i); // マーカーにクリックイベントを追加
+        google.maps.event.addListener( marker, 'click', (function( marker, i) {
+            return function() {
+                infowindow.setContent( markers[i][0]);
+                infowindow.open( map, marker);
+            }
+        })( marker, i));
     }
- 
-    marker[0].setOptions({// TAM 東京のマーカーのオプション設定
-        icon: {
-            url: markerData[0]['icon']// マーカーの画像を変更
-        }
-    });
-}
- 
-// マーカーにクリックイベントを追加
-function markerEvent(i) {
-    marker[i].addListener('click', function() { // マーカーをクリックしたとき
-        infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-    });
-}
-
-
-
-
-    </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeOS_9HgGPh8cpvyAqIA7uAYLSIFIMzu0&callback=initMap">
-    </script>
-  </body>
+}) 
+</script>  </body>
 </html>
